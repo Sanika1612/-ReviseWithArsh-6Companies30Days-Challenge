@@ -1,26 +1,31 @@
 class Solution {
 public:
-    vector<int> smallestTrimmedNumbers(vector<string>& nums, vector<vector<int>>& queries) {       //space complexity : O(n)
-        //time complexity: O(queries.size()*nlogn);
-         int n=nums[0].size();
-        vector<int>ans;
-    //iterate all queries one by one
-    for(int i=0; i<queries.size(); i++){
-        int index=queries[i][0]; 
-        int t=queries[i][1];
-        //Use vector to store substring and its index
-        vector<pair<string, int>>v; 
-     
-                
-        for(int j=0; j<nums.size(); j++){
-                v.push_back({(nums[j].substr(n-t)), j});
-         }
-        //sort the vector
-        sort(v.begin(), v.end());
-        ans.push_back(v[index-1].second);   
-          
-        v.clear();
-    }
-    return ans;
+    int countDistinct(vector<int>& nums, int k, int p) {
+        //Brute force
+        //Time complexity: O(n^3) two loops and inserting vector in set
+        //Space Complexity: O(n^2);
+        set<vector<int>>s;
+        int n=nums.size();
+        int ans=0;
+        for(int i=0; i<n; i++){
+            vector<int>v; int c=0;
+            for(int j=i; j<n; j++){
+                if(nums[j]%p==0) c++;
+
+                 if(c<=k){
+                     v.push_back(nums[j]);
+                 }
+               
+                if(!v.empty())
+                 {s.insert(v);}
+               
+            }
+            v.clear();
+        }
+      
+            
+        int dis= s.size();
+        return dis;
+
     }
 };
