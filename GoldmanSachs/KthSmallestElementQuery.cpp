@@ -1,3 +1,5 @@
+//Solution 1 
+
 class Solution {
 public:
     int countDistinct(vector<int>& nums, int k, int p) {
@@ -27,5 +29,32 @@ public:
         int dis= s.size();
         return dis;
 
+    }
+};
+
+//Solution 2 (optimized)
+class Solution {
+public:
+        int countDistinct(vector<int>& nums, int k, int p) {
+
+        //Optimization using hashing(rolling hash) 
+        //TC: O(n^2)
+
+        unordered_map<int, unordered_set<int>> hashMap; //len, {hash}
+
+        int res = 0;
+
+        for (int i=0; i<nums.size(); i++){
+            long long hash = 0, cntP = 0, mod = 1e9+7, pow = 200;
+            for(int j=i; j < nums.size(); j++){
+                if (nums[j] % p == 0) 
+                cntP++;
+                if (cntP <= k) {
+                hash = (hash * pow + nums[j]) % mod;
+                if (hashMap[j-i+1].insert(hash).second) res++;
+                }
+            }
+        }
+        return res;
     }
 };
