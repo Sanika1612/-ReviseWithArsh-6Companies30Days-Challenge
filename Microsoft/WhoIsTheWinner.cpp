@@ -1,3 +1,48 @@
+// We can also solve this question using circular linked list or queue 
+
+// Using Circular Linked List:
+// Create circular linked list of size n and stimulate the process
+
+// Using queue
+// Pop front element of queue and push from back. Do this for k time. and pop front element(kth element) . 
+// Do this till queue size becomes 1
+
+
+
+
+//Solution 1:
+//Most optimized iterative approch with 
+// space complexity: O(1) 
+// time complexity : O(n)
+class Solution {
+public:
+
+    int findTheWinner(int n, int k) {
+        int ans=0;
+    
+        for(int i=0; i<n; i++){
+         ans=(ans+k)%(i+1);
+        }
+        return ans+1;
+    }
+};
+//Solution 2:
+//Recursive approch with 
+// space complexity: O(1) 
+// time complexity : O(n)
+class Solution {
+public:
+   int solve(int n, int k){
+       if(n==1) return 0;
+       
+       return (solve((n-1),k)+k )%n;
+   }
+    int findTheWinner(int n, int k) {
+        return solve(n,k)+1;
+    }
+};
+
+//Solution 2: Worst solution
 class Solution {
 public:
     int findTheWinner(int n, int k) {
