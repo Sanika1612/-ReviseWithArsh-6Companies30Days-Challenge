@@ -1,3 +1,7 @@
+
+
+
+
 class Solution {
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
@@ -43,15 +47,39 @@ public:
                 post+=1;
                 pre+=1;
                 ans+=(post*pre);
-                
-                
-                
-             
-               
-            
-          
 
         return ans;
 
+    }
+};
+
+//kind of similar approach but simple and clean code:
+
+class Solution {
+public:
+    int numberOfSubarrays(vector<int>& nums, int k) {
+
+        //Bohot sahi solution 
+        int n = nums.size();
+        int ans = 0,odd = 0,cnt = 0;
+        int l = 0,r = 0;
+        while(r<n)
+        {
+            if(nums[r]%2 != 0)
+            {
+                odd++;
+                cnt = 0;
+            }
+            while(odd == k)
+            {
+                ++cnt;
+                if(nums[l++]%2)
+                odd -=1; 
+            }
+            // cout<<r<<" "<<cnt<<" "<<l<<" "<<odd<<endl;
+            ans += cnt;
+            r++;
+        }
+        return ans;
     }
 };
